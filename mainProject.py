@@ -1,5 +1,6 @@
 import urllib.request, urllib.parse
 import json, ssl
+import math
 
 url = "https://api.geoapify.com/v1/geocode/search?"
 apiKey = "c4c54e3132cf4ce4becca78b555da324"
@@ -49,6 +50,16 @@ def locationFinder():
             elif len(jsD['features']) == 0:
                 print('==== Destination Object not found ====')
                 print(dataD)
+            latO = jsO['features'][0]['properties']['lat']
+            lonO = jsO['features'][0]['properties']['lon']
+            latD = jsD['features'][0]['properties']['lat']
+            lonD = jsD['features'][0]['properties']['lon']
+            newLatO = math.radians(float(latO))
+            newLonO = math.radians(float(lonO))
+            newLatD = math.radians(float(latD))
+            newLonD = math.radians(float(lonD))
+            latDiff = newLatD - newLatO
+            lonDiff = newLonD - newLonO
     except Exception as e:
         print(f"Error: {e}")
 
