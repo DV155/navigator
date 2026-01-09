@@ -4,8 +4,9 @@ import math
 
 url = "https://api.geoapify.com/v1/geocode/search?"
 apiKey = "c4c54e3132cf4ce4becca78b555da324"
+radius = 6371 #Earth's radius for haversine formula
 
-def locationFinder():
+def locationFinder(): 
     locationOne = input("What is your first location?")
     locationTwo = input("What is your second location?")
 
