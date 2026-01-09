@@ -27,6 +27,8 @@ def locationFinder():
         dataD = uhD.read().decode()
         try:
             jsO = json.loads(dataO)
+            print("\n--- ORIGIN ---")
+            print(json.dumps(jsO, indent=2))
         except:
             jsO = None
             if not jsO or 'features' not in jsO:
@@ -37,6 +39,8 @@ def locationFinder():
                 print(dataO)
         try:
             jsD = json.loads(dataD)
+            print("\n--- DESTINATION ---")
+            print(json.dumps(jsD, indent=2))
         except:
             jsD = None
             if not jsD or 'features' not in jsD:
