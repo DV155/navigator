@@ -22,7 +22,7 @@ def locationFinder():
     try:
         urlOrigin = url + urllib.parse.urlencode(parmsO)
         urlDestination = url + urllib.parse.urlencode(parmsD)
-        print(f"Retrieving: {urlOrigin} and {urlDestination}")
+        print(f"Retrieving location of {locationOne} and {locationTwo}")
         uhO = urllib.request.urlopen(urlOrigin)
         uhD = urllib.request.urlopen(urlDestination)
         dataO = uhO.read().decode()
@@ -52,6 +52,8 @@ def locationFinder():
                 print('==== Destination Object not found ====')
                 print(dataD)
         latO = jsO['features'][0]['properties']['lat']
+        landO = jsO['features'][0]['properties']['country']
+        landD = jsD['features'][0]['properties']['country']
         lonO = jsO['features'][0]['properties']['lon']
         latD = jsD['features'][0]['properties']['lat']
         lonD = jsD['features'][0]['properties']['lon']
@@ -66,6 +68,7 @@ def locationFinder():
         distance = radius * c
         time = distance / 4.8
         units = "hours"
+        strDistance = str(distance)
         if time > 8760:
             time = time / 8760
             units = "years"
@@ -75,9 +78,11 @@ def locationFinder():
         elif time > 24:
             time = time / 24
             units = "hours"
-        print("The distance is", f"{distance:.3g}", "kilometres")
+        if landO != landD:
+            print("WARNING! Adresses in different countries, likely too long to walk")
+        print("The distance is",strDistance[:4] , "kilometres")
         print("Approximate walking time in a straight line should be", f"{time:.3g}", units)
-        anotherOne = input("Do you want to check another location? Input to continue")
+        anotherOne = input("Do you want to check another location? Input something to continue")
         if len(anotherOne) > 0:
             locationFinder()
     except Exception as e:
