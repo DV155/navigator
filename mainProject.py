@@ -75,7 +75,7 @@ def locationFinder():
         elif time > 24:
             time = time / 24
             units = "hours"
-        print("The distance is", f"{distance:.3g}", "kilometers")
+        print("The distance is", f"{distance:.3g}", "kilometres")
         print("Approximate walking time in a straight line should be", f"{time:.3g}", units)
         anotherOne = input("Do you want to check another location? Input to continue")
         if len(anotherOne) > 0:
