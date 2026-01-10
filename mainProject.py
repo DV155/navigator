@@ -29,8 +29,8 @@ def locationFinder():
         dataD = uhD.read().decode()
         try:
             jsO = json.loads(dataO)
-            print("\n--- ORIGIN ---")
-            print(json.dumps(jsO, indent=2))
+            #print("\n--- ORIGIN ---")
+            #print(json.dumps(jsO, indent=2))
         except:
             jsO = None
             if not jsO or 'features' not in jsO:
@@ -41,8 +41,8 @@ def locationFinder():
                 print(dataO)
         try:
             jsD = json.loads(dataD)
-            print("\n--- DESTINATION ---")
-            print(json.dumps(jsD, indent=2))
+            #print("\n--- DESTINATION ---")
+            #print(json.dumps(jsD, indent=2))
         except:
             jsD = None
             if not jsD or 'features' not in jsD:
@@ -51,21 +51,21 @@ def locationFinder():
             elif len(jsD['features']) == 0:
                 print('==== Destination Object not found ====')
                 print(dataD)
-            latO = jsO['features'][0]['properties']['lat']
-            lonO = jsO['features'][0]['properties']['lon']
-            latD = jsD['features'][0]['properties']['lat']
-            lonD = jsD['features'][0]['properties']['lon']
-            newLatO = math.radians(float(latO))
-            newLonO = math.radians(float(lonO))
-            newLatD = math.radians(float(latD))
-            newLonD = math.radians(float(lonD))
-            latDiff = newLatD - newLatO
-            lonDiff = newLonD - newLonO
-            a = (math.sine(latDiff / 2) ** 2) + math.cos(latO ) * math.cos(latD) * (math.sine(lonDiff / 2) ** 2)      #square of half of chord length
-            c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a)) #central angle
-            distance = radius * c
-            print("The distance is", distance, "kilometers")
-            print("Mean walking time should be", distance / 4.8 )
+        latO = jsO['features'][0]['properties']['lat']
+        lonO = jsO['features'][0]['properties']['lon']
+        latD = jsD['features'][0]['properties']['lat']
+        lonD = jsD['features'][0]['properties']['lon']
+        newLatO = math.radians(float(latO))
+        newLonO = math.radians(float(lonO))
+        newLatD = math.radians(float(latD))
+        newLonD = math.radians(float(lonD))
+        latDiff = newLatD - newLatO
+        lonDiff = newLonD - newLonO
+        a = (math.sin(latDiff / 2) ** 2) + math.cos(newLatO ) * math.cos(newLatD) * (math.sin(lonDiff / 2) ** 2)      #square of half of chord length
+        c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a)) #central angle
+        distance = radius * c
+        print("The distance is", distance, "kilometers")
+        print("Mean walking time should be", distance / 4.8, "hours" )
     except Exception as e:
         print(f"Error: {e}")
 
