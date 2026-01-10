@@ -80,11 +80,19 @@ def locationFinder():
             units = "hours"
         if landO != landD:
             print("WARNING! Adresses in different countries, likely too long to walk")
-        print("The distance is",strDistance[:4] , "kilometres")
+        print("The distance is", strDistance[:4] , "kilometres")
         print("Approximate walking time in a straight line should be", f"{time:.3g}", units)
         anotherOne = input("Do you want to check another location? Input something to continue")
         if len(anotherOne) > 0:
             locationFinder()
+        with open('index.html', 'r') as f:
+            html_content = f.read()
+            html_content = html_content.replace('{{INITIAL-LOCATION}}', locationOne)
+            html_content = html_content.replace('{{FINAL-LOCATION}}', locationTwo)
+            html_content = html_content.replace('{{DISTANCE}}', f'{strDistance[:4]}')
+            html_content = html_content.replace('{{WALKING-TIME}}', f'{time:.3g}')
+        with open('distance-map.html', 'w') as f:
+            f.write(html_content)
     except Exception as e:
         print(f"Error: {e}")
 
