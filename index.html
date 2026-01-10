@@ -30,7 +30,10 @@
         var origin = [{{LAT_O}}, {{LON_O}}];
         var destination = [{{LAT_D}}, {{LON_D}}];
         var oMarker = L.marker(origin).addTo(map);
+        oMarker.bindPopup("<b>Origin</b><br>{{INITIAL-LOCATION}}").openPopup();
+
         var dMarker = L.marker(destination).addTo(map);
+        dMarker.bindPopup("<b>Destination</b><br>{{FINAL-LOCATION}}").openPopup();
         var pointList = [origin, destination];
 
         var firstpolyline = new L.Polyline(pointList, {
