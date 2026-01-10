@@ -11,29 +11,29 @@
 
 </head>
 <body>
-    <p><strong>From: </strong> moscow</p>
-    <p><strong>To:</strong> volgograd</p>
-    <p><strong>Distance:</strong> 912. km</p>
-    <p><strong>Time:</strong> 7.92 hours </p>
+    <p><strong>From: </strong> Vienna</p>
+    <p><strong>To:</strong> Moscow</p>
+    <p><strong>Distance:</strong> 1669 km WARNING! Adresses in different countries, likely too long to walk</p>
+    <p><strong>Time:</strong> 14.5 days </p>
     <div id="map"></div>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
     crossorigin=""></script>
     <script>
-        var map = L.map('map').setView([52.229365900000005, 41.06640675], 4);
+        var map = L.map('map').setView([51.97944745, 26.9949912], 4);
         
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             maxZoom: 19,
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
         
-        var origin = [55.7505412, 37.6174782];
-        var destination = [48.7081906, 44.5153353];
+        var origin = [48.2083537, 16.3725042];
+        var destination = [55.7505412, 37.6174782];
         var oMarker = L.marker(origin).addTo(map);
-        oMarker.bindPopup("<b>Origin</b><br>moscow").openPopup();
+        oMarker.bindPopup("<b>Origin</b><br>Vienna").openPopup();
 
         var dMarker = L.marker(destination).addTo(map);
-        dMarker.bindPopup("<b>Destination</b><br>volgograd").openPopup();
+        dMarker.bindPopup("<b>Destination</b><br>Moscow").openPopup();
         var pointList = [origin, destination];
 
         var firstpolyline = new L.Polyline(pointList, {

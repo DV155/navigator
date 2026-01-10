@@ -80,7 +80,7 @@ def locationFinder():
             units = "months"
         elif time > 24:
             time = time / 24
-            units = "hours"
+            units = "days"
         if landO != landD:
             countryCheck = True
             print("WARNING! Adresses in different countries, likely too long to walk")
@@ -107,8 +107,6 @@ def locationFinder():
             html_content = html_content.replace('{{LON_D}}', str(lonD))
         with open('distance-map.html', 'w') as f:
             f.write(html_content)
-        with open("main.js", "w") as f:
-            js_content = f.read()
 
         anotherOne = input("Do you want to check another location? Input something to continue")
         if len(anotherOne) > 0:
