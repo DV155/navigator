@@ -64,8 +64,22 @@ def locationFinder():
         a = (math.sin(latDiff / 2) ** 2) + math.cos(newLatO ) * math.cos(newLatD) * (math.sin(lonDiff / 2) ** 2)      #square of half of chord length
         c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a)) #central angle
         distance = radius * c
-        print("The distance is", distance, "kilometers")
-        print("Mean walking time should be", distance / 4.8, "hours" )
+        time = distance / 4.8
+        units = "hours"
+        if time > 8760:
+            time = time / 8760
+            units = "years"
+        elif time > 730:
+            time = time / 730
+            units = "months"
+        elif time > 24:
+            time = time / 24
+            units = "hours"
+        print("The distance is", f"{distance:.3g}", "kilometers")
+        print("Approximate walking time in a straight line should be", f"{time:.3g}", units)
+        anotherOne = input("Do you want to check another location? Input to continue")
+        if len(anotherOne) > 0:
+            locationFinder()
     except Exception as e:
         print(f"Error: {e}")
 
