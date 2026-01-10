@@ -61,6 +61,11 @@ def locationFinder():
             newLonD = math.radians(float(lonD))
             latDiff = newLatD - newLatO
             lonDiff = newLonD - newLonO
+            a = (math.sine(latDiff / 2) ** 2) + math.cos(latO ) * math.cos(latD) * (math.sine(lonDiff / 2) ** 2)      #square of half of chord length
+            c = 2 * math.atan2(math.sqrt(a), math.sqrt(1-a)) #central angle
+            distance = radius * c
+            print("The distance is", distance, "kilometers")
+            print("Mean walking time should be", distance / 4.8 )
     except Exception as e:
         print(f"Error: {e}")
 
