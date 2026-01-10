@@ -4,13 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Map</title>
-    <!--<link rel="stylesheet" href="style.css">-->
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""/>
+
 </head>
 <body>
-    <p><strong>From: </strong> berlin</p>
-    <p><strong>To:</strong> warsaw</p>
-    <p><strong>Distance:</strong> 517. km WARNING! Adresses in different countries, likely too long to walk</p>
-    <p><strong>Time:</strong> 4.49 hours </p>
-  <script src="main.js"></script>
+    <p><strong>From: </strong> vienna</p>
+    <p><strong>To:</strong> berlin</p>
+    <p><strong>Distance:</strong> 522. km WARNING! Adresses in different countries, likely too long to walk</p>
+    <p><strong>Time:</strong> 4.54 hours </p>
+    <div id="map"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""></script>
+    <script>
+        var map = L.map('map').setView([50.35961935, 14.88572045], 4);
+        
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            maxZoom: 19,
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        }).addTo(map);
+        
+        var origin = [48.2083537, 16.3725042];
+        var destination = [52.510885, 13.3989367];
+        var oMarker = L.marker(origin).addTo(map);
+        var dMarker = L.marker(destination).addTo(map);
+        var pointList = [origin, destination];
+
+        var firstpolyline = new L.Polyline(pointList, {
+            color: 'red',
+            weight: 3,
+            opacity: 1,
+            smoothFactor: 1
+        });
+        firstpolyline.addTo(map);
+    </script>
 </body>
 </html>

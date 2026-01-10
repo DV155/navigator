@@ -6,8 +6,10 @@ url = "https://api.geoapify.com/v1/geocode/search?"
 apiKey = "c4c54e3132cf4ce4becca78b555da324"
 radius = 6371 #Earth's radius for haversine formula
 distanceWarning = "WARNING! Adresses in different countries, likely too long to walk"
+countryCheck = False
 
 def locationFinder(): 
+    countryCheck = False
     locationOne = input("What is your first location?")
     locationTwo = input("What is your second location?")
 
@@ -84,8 +86,10 @@ def locationFinder():
             print("WARNING! Adresses in different countries, likely too long to walk")
         print("The distance is", strDistance[:4] , "kilometres")
         print("Approximate walking time in a straight line should be", f"{time:.3g}", units)
-        with open('index.html', 'r') as f:
+        with open('index.html', 'r') as f: #HTML handle + editing
             html_content = f.read()
+            centerLat = (latO + latD) / 2
+            centerLon = (lonO + lonD) / 2
             html_content = html_content.replace('{{INITIAL-LOCATION}}', locationOne)
             html_content = html_content.replace('{{FINAL-LOCATION}}', locationTwo)
             if countryCheck:
@@ -94,12 +98,25 @@ def locationFinder():
                 html_content = html_content.replace('{{DISTANCE}}', f'{strDistance[:4]} km' )
             html_content = html_content.replace('{{UNITS}}', f'{units}')
             html_content = html_content.replace('{{WALKING-TIME}}', f'{time:.3g}')
+            html_content = html_content.replace('{{CENTER_LAT}}', str(centerLat))
+            html_content = html_content.replace('{{CENTER_LON}}', str(centerLon))
+            html_content = html_content.replace('{{ZOOM_LEVEL}}', '4')  # Adjust zoom as needed
+            html_content = html_content.replace('{{LAT_O}}', str(latO))
+            html_content = html_content.replace('{{LON_O}}', str(lonO))
+            html_content = html_content.replace('{{LAT_D}}', str(latD))
+            html_content = html_content.replace('{{LON_D}}', str(lonD))
         with open('distance-map.html', 'w') as f:
             f.write(html_content)
+        with open("main.js", "w") as f:
+            js_content = f.read()
+
         anotherOne = input("Do you want to check another location? Input something to continue")
         if len(anotherOne) > 0:
             locationFinder()
     except Exception as e:
         print(f"Error: {e}")
+        tryAgain = input("Wanna try again? Input something to continue")
+        if len(tryAgain) > 0:
+            locationFinder()
 
 locationFinder()
